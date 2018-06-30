@@ -1,12 +1,15 @@
 import boto3
-
+AMI_ID = ''
+KEY_NAME = ''
+SUBNET_ID = ''
+SEC_GROUP = ''
 
 def create_instace(vmtype='m5.large', num=1):
     ec2 = boto3.resource('ec2', region_name="us-east-2")
     instance = ec2.create_instances(
-    ImageId='ami-984a79fd',
+    ImageId=AMI_ID,
     InstanceType=vmtype,
-    KeyName='awskey',
+    KeyName=KEY_NAME,
     MaxCount=num,
     MinCount=1,
     Monitoring={
@@ -16,9 +19,9 @@ def create_instace(vmtype='m5.large', num=1):
         'AvailabilityZone': 'us-east-2a',
     },
     SecurityGroupIds=[
-        'sg-5372ed3b',
+        SEC_GROUP,
     ],
-    SubnetId='subnet-e65d658f',
+    SubnetId=SUBNET_ID,
     DisableApiTermination=False,
     InstanceInitiatedShutdownBehavior='stop',
     TagSpecifications=[
